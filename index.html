@@ -40,14 +40,17 @@
 
   .hero-headline {
     font-family: var(--serif);
-    font-size: clamp(48px, 9vw, 132px);
-    line-height: 0.94;
+    font-size: clamp(32px, 5.5vw, 80px);
+    line-height: 1.05;
     letter-spacing: -0.025em;
     color: var(--ink);
     align-self: center;
-    max-width: 16ch;
+    width: 100%;
   }
-  .hero-headline .it { font-style: italic; color: var(--accent); }
+  .hero-headline .line2 {
+    display: block;
+    text-align: right;
+  }
   .hero-headline .small {
     display: block;
     font-family: var(--sans);
@@ -58,6 +61,7 @@
     margin-top: 28px;
     max-width: 52ch;
     font-weight: 400;
+    text-align: left;
   }
 
   .hero-tail {
@@ -70,8 +74,7 @@
   }
   .hero-tail .name {
     font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(20px, 2.5vw, 30px);
+    font-size: clamp(16px, 1.8vw, 22px);
     letter-spacing: -0.01em;
   }
   .hero-tail .tags {
@@ -132,7 +135,7 @@
     letter-spacing: -0.02em;
     color: var(--ink);
   }
-  .card .title em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .card .title em { font-style: normal; color: var(--accent); font-weight: 400; }
   .card .desc {
     font-size: 13.5px;
     color: var(--ink-soft);
@@ -199,7 +202,7 @@
     </div>
     <nav>
       <a href="#" class="active">Index</a>
-      <a href="profile.html">Profile</a>
+
       <a href="project.html">Project</a>
       <a href="studying.html">Studying</a>
       <a href="research.html">Research</a>
@@ -210,11 +213,6 @@
   <!-- Hero / Profile preview -->
   <section class="hero reveal" aria-label="profile">
     <div class="hero-meta">
-      <div class="col">
-        <span>RA · AI Agent Researcher</span>
-        <strong>Hyundai · Naver Cloud</strong>
-        <span>Hanyang University, ERICA</span>
-      </div>
       <div class="col right">
         <span>Index № 01 / 04</span>
         <strong>Profile</strong>
@@ -223,9 +221,7 @@
     </div>
 
     <h1 class="hero-headline">
-      기술에 <span class="it">온기</span>를<br/>
-      더하는 사람,<br/>
-      <span class="it">안채연</span>입니다.
+      기술에 온기를 더하는,<span class="line2">안채연입니다.</span>
       <span class="small">
         한양대 ERICA에서 경제학과 컴퓨터공학을 복수전공하며, AI가 사람을 더 깊이 이해하도록 만드는 일에 관심이 있습니다.
         지금은 네이버클라우드에서 HyperCLOVA X 기반 Agentic AI를 연구하고 있어요.
@@ -233,7 +229,6 @@
     </h1>
 
     <div class="hero-tail">
-      <div class="name">— Chaeyeon An, b. 2003</div>
       <div class="tags">
         <span class="tag">AI Agent</span>
         <span class="tag">Inclusive Design</span>
@@ -242,7 +237,6 @@
     </div>
 
     <span class="signature-mark">Folio · Vol.01</span>
-    <span class="hero-index">Profile / Project / Studying / Research</span>
   </section>
 
   <!-- 3 cards -->
@@ -250,7 +244,6 @@
     <a class="card reveal" href="project.html">
       <div class="num">N° 02 — Selected Work</div>
       <h2 class="title">Pro<em>j</em>ect</h2>
-      <p class="desc">포용적 AI 에이전트, 한국 교육과정 데이터셋 등 기획부터 검수까지의 기록.</p>
       <div class="row">
         <span class="eyebrow">3 entries</span>
         <span class="arrow" aria-hidden="true">
@@ -264,7 +257,6 @@
     <a class="card reveal" href="studying.html" style="transition-delay: .05s">
       <div class="num">N° 03 — Notes &amp; Logs</div>
       <h2 class="title">Stud<em>y</em>ing</h2>
-      <p class="desc">매주 새롭게 배우는 것들 — 데이터 분석, 통계, 금융, AI 논문 정리.</p>
       <div class="row">
         <span class="eyebrow">Updates weekly</span>
         <span class="arrow" aria-hidden="true">
@@ -278,7 +270,6 @@
     <a class="card reveal" href="research.html" style="transition-delay: .1s">
       <div class="num">N° 04 — Long-form</div>
       <h2 class="title">Resear<em>c</em>h</h2>
-      <p class="desc">시장과 산업, 그리고 사람을 둘러싼 긴 호흡의 글들. 깊이 있게 적어 봅니다.</p>
       <div class="row">
         <span class="eyebrow">Updates monthly</span>
         <span class="arrow" aria-hidden="true">
@@ -299,7 +290,6 @@
       </div>
     </div>
     <div class="meta">
-      <div>+82 010 — 8393 — 5061</div>
       <div>Seoul, Republic of Korea</div>
       <div>© 2026 Chaeyeon An</div>
     </div>
