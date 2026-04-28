@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P-02 한국 교육과정 기반 대규모 AI 학습 데이터셋 구축 — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 40px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .proj-header {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .proj-header .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .proj-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .proj-header h1 em { font-style: normal; color: var(--accent); font-weight: 400; }
+  .proj-meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+  }
+  .proj-meta-row strong { color: var(--ink); font-weight: 500; }
+
+  .proj-body {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+  }
+  @media (max-width: 880px) { .proj-body { grid-template-columns: 1fr; } }
+
+  .summary {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .body-block { margin-bottom: 28px; }
+  .body-block:last-child { margin-bottom: 0; }
+  .body-block .h {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: end;
+  }
+  .body-block ul { list-style: none; }
+  .body-block li {
+    position: relative;
+    padding: 8px 0 8px 22px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--line-soft);
+  }
+  .body-block li:last-child { border-bottom: none; }
+  .body-block li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .body-block li b { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="project.html" class="active">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <a class="back-link reveal" href="project.html">← Project 목록으로</a>
+
+  <div class="proj-header reveal">
+    <div class="num">P-02 — Completed</div>
+    <h1>한국 교육과정 기반<br/><em>대규모</em> AI 학습 데이터셋 구축</h1>
+    <div class="proj-meta-row">
+      <span><strong>Organization</strong> &nbsp; Selectstar · PM 1팀</span>
+      <span><strong>Period</strong> &nbsp; 2024.07 — 2025.02</span>
+    </div>
+  </div>
+
+  <div class="proj-body reveal">
+    <div>
+      <p class="summary">
+        한국 교육과정 기반 초·중·고 영역별 대규모 AI 학습 데이터셋 구축 프로젝트.
+        국어·수학·영어 한국 교육과정 및 시중 문제집 기반의 정합성 중심 데이터를 설계.
+      </p>
+      <div class="chips">
+        <span class="tag">Data Pipeline</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">OCR</span>
+        <span class="tag">12,000+ items</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="body-block">
+        <div class="h"><span>Key Features</span><span>01</span></div>
+        <ul>
+          <li>국어·수학·영어 한국 교육과정 및 시중 문제집 기반 <b>대규모 AI 학습 데이터셋</b> 구축</li>
+          <li>초·중·고 전 학년 범위를 포괄하는 <b>교육과정 정합성 중심</b>의 데이터 설계</li>
+        </ul>
+      </div>
+      <div class="body-block">
+        <div class="h"><span>My Role &amp; Contributions</span><span>02</span></div>
+        <ul>
+          <li><b>수학 데이터셋 구축 (초·중·고 총 12,000 문항)</b> — 한국 교육과정 평가원·교과서 등 국내 교육과정 체계 리서치 및 기준 반영</li>
+          <li>데이터 구축 프로세스 기획 및 전체 <b>파이프라인 설계</b> — 교과서·문제집 OCR 및 초벌 데이터 생성, Google Sheets 작업 시트 설계</li>
+          <li>API 호출 및 LLM 기반 <b>2·3차 검수 자동화</b> 파이프라인 구축, 최종 검수 및 데이터 납품 진행</li>
+          <li>교육과정 정합성 / LaTeX 표현 / 문제 풀이 타당성 <b>3축 검수 기준</b> 수립 및 Prompt Engineering</li>
+          <li>Colab 환경 연동 <b>Google Sheets → JSON 파싱 자동화</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

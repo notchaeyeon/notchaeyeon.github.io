@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P-01 포용적 AI 에이전트 벤치마크 설계 — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 40px;
+    transition: color .2s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .proj-header {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .proj-header .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .proj-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .proj-header h1 em { font-style: normal; color: var(--accent); font-weight: 400; }
+  .proj-meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+  }
+  .proj-meta-row strong { color: var(--ink); font-weight: 500; }
+
+  .proj-body {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+  }
+  @media (max-width: 880px) { .proj-body { grid-template-columns: 1fr; } }
+
+  .summary {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .body-block { margin-bottom: 28px; }
+  .body-block:last-child { margin-bottom: 0; }
+  .body-block .h {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: end;
+  }
+  .body-block ul { list-style: none; }
+  .body-block li {
+    position: relative;
+    padding: 8px 0 8px 22px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--line-soft);
+  }
+  .body-block li:last-child { border-bottom: none; }
+  .body-block li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .body-block li b { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="project.html" class="active">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <a class="back-link reveal" href="project.html">← Project 목록으로</a>
+
+  <div class="proj-header reveal">
+    <div class="num">P-01 — Completed</div>
+    <h1>포용적 <em>AI</em> 에이전트<br/>벤치마크 설계</h1>
+    <div class="proj-meta-row">
+      <span><strong>Organization</strong> &nbsp; Naver Cloud · HyperCLOVA X</span>
+      <span><strong>Period</strong> &nbsp; 2025.12 — Now</span>
+    </div>
+  </div>
+
+  <div class="proj-body reveal">
+    <div>
+      <p class="summary">
+        AX 확산 과정에서 소외되기 쉬운 산업·연령층을 문제로 설정하고,
+        기존 tau² Agentic Tool Use 벤치마크에 포용성 개념을 주입·평가하는 프레임을 재구축한 프로젝트.
+      </p>
+      <div class="chips">
+        <span class="tag">Agentic AI</span>
+        <span class="tag">Benchmark</span>
+        <span class="tag">LLM-as-a-Judge</span>
+        <span class="tag">Inclusive Design</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="body-block">
+        <div class="h"><span>Key Features</span><span>01</span></div>
+        <ul>
+          <li>국내 산업 통계 분석을 통해 고령자 비중이 높은 <b>농업·요양·유통·물류 4대 산업</b>을 선정하고, 현장 중심 Real-World Task를 정의</li>
+          <li><b>실데이터 분석</b>을 기반으로 고령 사용자 특성을 반영한 페르소나 주입형 사용자 시뮬레이션 환경 구축</li>
+          <li>API 호출 · 도구 사용 · 문제 해결 · 포용성 전반을 평가하는 <b>스코어링 체계</b> 설계</li>
+        </ul>
+      </div>
+
+      <div class="body-block">
+        <div class="h"><span>My Role &amp; Contributions</span><span>02</span></div>
+        <ul>
+          <li><b>User Simulator 구현 (고령자 페르소나 주입)</b> — 고령자 발화 패턴을 모듈화하고, 발생 확률을 제어하는 로직으로 시뮬레이터의 현실성·재현성 확보</li>
+          <li>패턴 적용 전·후 발화를 메타데이터로 기록해 <b>패턴별 효과 분석</b> 설계</li>
+          <li><b>포용성 평가(Evaluator)</b> 설계 — tau² reward 체계를 확장해 Uncertainty / Pressure / Alienation / Invalidation 4축 기반 평가 프레임 설계</li>
+          <li>평가축별 점수·근거를 생성하는 <b>LLM-as-a-Judge</b> 스코어링 로직 구현, JSON 스키마 정형화 및 재평가/후처리 파이프라인 구축</li>
+          <li>농업(농기계) 도메인 Agent Workflow Policy 개선, 한·영 데이터셋 구축, 유통(편의점) 도메인 Tool API 리팩토링</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

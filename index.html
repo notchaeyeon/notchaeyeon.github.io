@@ -19,8 +19,36 @@
     overflow: hidden;
     min-height: clamp(440px, 62vh, 620px);
     display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 32px;
+    grid-template-rows: auto auto auto;
+    gap: 24px;
+  }
+  .hero-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-lower {
+    display: grid;
+    grid-template-columns: clamp(190px, 22vw, 270px) 1fr;
+    gap: 16px;
+    align-items: start;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 20px;
+  }
+  .hero-photo {
+    border-radius: var(--r-md);
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  @media (max-width: 720px) {
+    .hero-lower { grid-template-columns: 1fr; }
+    .hero-photo { display: none; }
   }
 
   .hero-meta {
@@ -41,27 +69,116 @@
   .hero-headline {
     font-family: var(--serif);
     font-size: clamp(32px, 5.5vw, 80px);
-    line-height: 1.05;
+    line-height: 1.45;
     letter-spacing: -0.025em;
     color: var(--ink);
     align-self: center;
     width: 100%;
+    text-align: center;
   }
   .hero-headline .line2 {
     display: block;
     text-align: right;
   }
-  .hero-headline .small {
+  /* hero info grid */
+  .hero-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px;
+    padding-top: 20px;
+  }
+  .hero-info > div:nth-child(odd) {
+    padding-left: 48px;
+  }
+  @media (max-width: 600px) {
+    .hero-info { grid-template-columns: 1fr; }
+  }
+  .skills-table { width: 100%; border-collapse: collapse; }
+  .skills-table tr { border-bottom: 1px solid var(--line-soft); }
+  .skills-table tr:last-child { border-bottom: none; }
+  .skills-table td {
+    padding: 7px 0;
+    font-size: 11px;
+    vertical-align: top;
+    line-height: 1.8;
+  }
+  .skills-table .sk-cat {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-mute);
+    white-space: nowrap;
+    padding-right: 14px;
+    width: 28%;
+  }
+  .skills-table .sk-items { color: var(--ink-soft); }
+  .sk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .sk-name { flex: 1; font-size: 11px; color: var(--ink-soft); }
+  .sk-dots {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  .sk-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-mute);
     display: block;
+  }
+  .sk-dots span.on { background: var(--ink); border-color: var(--ink); }
+  .sk-dots span.on.ac { background: var(--accent); border-color: var(--accent); }
+  .info-label {
     font-family: var(--sans);
-    font-size: clamp(13px, 1.1vw, 16px);
-    letter-spacing: 0;
-    line-height: 1.6;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .info-item { margin-bottom: 12px; }
+  .info-place {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .info-period {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.02em;
+    margin: 2px 0 3px;
+  }
+  .info-desc {
+    font-size: 11.5px;
     color: var(--ink-soft);
-    margin-top: 28px;
-    max-width: 52ch;
-    font-weight: 400;
-    text-align: left;
+    line-height: 1.55;
+  }
+  .info-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+  }
+  .info-bullets li {
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    padding-left: 10px;
+    position: relative;
+  }
+  .info-bullets li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
   }
 
   .hero-tail {
@@ -214,19 +331,132 @@
   <section class="hero reveal" aria-label="profile">
     <div class="hero-meta">
       <div class="col right">
-        <span>Index № 01 / 04</span>
         <strong>Profile</strong>
         <span>Updated 2026.04</span>
       </div>
     </div>
 
-    <h1 class="hero-headline">
-      기술에 온기를 더하는,<span class="line2">안채연입니다.</span>
-      <span class="small">
-        한양대 ERICA에서 경제학과 컴퓨터공학을 복수전공하며, AI가 사람을 더 깊이 이해하도록 만드는 일에 관심이 있습니다.
-        지금은 네이버클라우드에서 HyperCLOVA X 기반 Agentic AI를 연구하고 있어요.
-      </span>
-    </h1>
+    <div class="hero-body">
+      <h1 class="hero-headline">
+        기술에 온기를 더하는,<span class="line2">안채연입니다.</span>
+      </h1>
+
+      <div class="hero-lower">
+        <div class="hero-photo">
+          <img src="image.png" alt="Chaeyeon An" />
+        </div>
+        <div class="hero-info">
+      <div>
+        <div class="info-label">Education</div>
+        <div class="info-item">
+          <div class="info-place">한양대학교 (ERICA)</div>
+          <div class="info-period">2021.03 – 2026.02</div>
+          <div class="info-desc">B.A. in Economics &amp; B.S. in Computer Science</div>
+          <div class="info-desc">GPA 4.00 / 4.50</div>
+        </div>
+        <div class="info-item">
+          <div class="info-place">인명여자고등학교</div>
+          <div class="info-period">2018.03 – 2021.02</div>
+        </div>
+      </div>
+      <div>
+        <div class="info-label">Certifications</div>
+        <div class="info-item">
+          <div class="info-desc">ADsP (데이터분석준전문가)</div>
+          <div class="info-period">2026.03.06 · 한국데이터산업진흥원</div>
+        </div>
+        <div class="info-item">
+          <div class="info-desc">SQL 개발자 (SQLD)</div>
+          <div class="info-period">2025.12.12 · 한국데이터산업진흥원</div>
+        </div>
+        <div class="info-item">
+          <div class="info-desc">투자자산운용사</div>
+          <div class="info-period">2025.05.01 · 한국금융투자협회</div>
+        </div>
+      </div>
+      <div>
+        <div class="info-label">Careers</div>
+        <div class="info-item">
+          <div class="info-place">네이버클라우드</div>
+          <div class="info-period">2025.12 –</div>
+          <div class="info-desc">Hyperscale AI Planning3, 인턴</div>
+          <ul class="info-bullets">
+            <li>HyperCLOVA X 모델 Agentic AI 역량 발굴, 적용 기획</li>
+          </ul>
+        </div>
+        <div class="info-item">
+          <div class="info-place">셀렉트스타</div>
+          <div class="info-period">2024.07 – 2025.02</div>
+          <div class="info-desc">PM 1팀, PA 인턴 및 계약직</div>
+          <ul class="info-bullets">
+            <li>대규모 AI 학습 데이터셋 구축 프로젝트 기획 및 수행</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="info-label">Skills</div>
+        <table class="skills-table">
+          <tr>
+            <td class="sk-cat">Programming</td>
+            <td class="sk-items">
+              <div class="sk-row">
+                <span class="sk-name">Python</span>
+                <div class="sk-dots">
+                  <span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span class="on"></span>
+                </div>
+              </div>
+              <div class="sk-row">
+                <span class="sk-name">C++</span>
+                <div class="sk-dots">
+                  <span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="sk-row">
+                <span class="sk-name">Java</span>
+                <div class="sk-dots">
+                  <span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span></span><span></span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="sk-cat">Data &amp; DB</td>
+            <td class="sk-items">
+              <div class="sk-row">
+                <span class="sk-name">PostgreSQL</span>
+                <div class="sk-dots">
+                  <span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span></span>
+                </div>
+              </div>
+              <div class="sk-row">
+                <span class="sk-name">MySQL</span>
+                <div class="sk-dots">
+                  <span class="on ac"></span><span class="on ac"></span><span class="on ac"></span><span></span><span></span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="sk-cat">AI / Analysis</td>
+            <td class="sk-items">
+              <span>Prompt Engineering</span>
+              <span>API Workflow Design</span>
+              <span>Data Analysis</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="sk-cat">Tools</td>
+            <td class="sk-items">
+              <span>VS Code / Eclipse</span>
+              <span>Git / GitHub</span>
+              <span>Slack</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+        </div><!-- /.hero-info -->
+      </div><!-- /.hero-lower -->
+    </div><!-- /.hero-body -->
 
     <div class="hero-tail"></div>
 
