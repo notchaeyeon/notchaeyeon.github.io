@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Profile — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .page-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .page-head h1 em { font-style: italic; color: var(--accent); }
+  .page-head .meta { text-align: right; }
+  .page-head .meta .eyebrow + .eyebrow { margin-top: 4px; }
+
+  /* Two col layout */
+  .grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: clamp(28px, 5vw, 80px);
+  }
+  @media (max-width: 880px) {
+    .grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .grid + .grid { margin-top: 64px; }
+
+  .grid .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding-top: 8px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .bio {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 30ch;
+  }
+  .bio + .bio-sub {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+
+  /* List rows (timeline) */
+  .rows { display: flex; flex-direction: column; }
+  .row-item {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 24px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line-soft);
+    align-items: baseline;
+  }
+  .row-item:first-child { border-top: none; padding-top: 4px; }
+  .row-item .when {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-mute);
+  }
+  .row-item .what {
+    font-family: var(--serif);
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .row-item .what small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    line-height: 1.55;
+  }
+  .row-item .where {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  @media (max-width: 720px) {
+    .row-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* Skills */
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 40px;
+  }
+  @media (max-width: 720px) { .skills { grid-template-columns: 1fr; } }
+  .skill {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .skill .name { font-size: 14px; }
+  .skill .bar {
+    width: 120px; height: 6px;
+    background: var(--bg-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .skill .bar > i {
+    display: block; height: 100%;
+    background: var(--ink);
+    border-radius: 999px;
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 14px;
+  }
+
+  /* Quick stats strip */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    margin: 48px 0;
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--paper);
+    padding: 22px 18px;
+  }
+  .stat .k {
+    font-family: var(--serif);
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat .k em { font-style: italic; color: var(--accent); }
+  .stat .v {
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* Photo card placeholder */
+  .photo-card {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-md);
+    margin-bottom: 18px;
+  }
+  .photo-card-cap {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell" data-screen-label="02 Profile">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="profile.html" class="active">Profile</a>
+      <a href="project.html">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <section class="page-head reveal">
+    <h1>Pro<em>f</em>ile.</h1>
+    <div class="meta">
+      <div class="eyebrow">N° 01 — About me</div>
+      <div class="eyebrow">b. 2003.01.27</div>
+      <div class="eyebrow">Last updated 2026.04</div>
+    </div>
+  </section>
+
+  <!-- Bio -->
+  <section class="grid reveal">
+    <div class="label">01 / Statement</div>
+    <div>
+      <div class="photo-card-cap" style="margin-bottom: 6px;">— A short note</div>
+      <p class="bio">
+        “기술이 사람을 더 깊이 이해하도록 만드는 일.”
+        그게 제가 하고 싶은 일이에요.
+      </p>
+      <p class="bio-sub">
+        한양대학교 ERICA에서 <strong>경제학과 컴퓨터공학을 복수전공</strong>하고 있으며,
+        <strong>네이버클라우드 Hyperscale AI Planning 3팀</strong>에서 HyperCLOVA X 기반의
+        Agentic AI 역량 발굴과 포용적 AI 에이전트 벤치마크 설계를 맡고 있습니다.
+        이전에는 셀렉트스타에서 한국 교육과정 기반의 대규모 AI 학습 데이터셋 구축 프로젝트를 기획·수행했어요.
+        숫자와 글, 그리고 사람의 마음을 한 화면에 담는 일을 좋아합니다.
+      </p>
+      <div class="chips">
+        <span class="tag">Agentic AI</span>
+        <span class="tag">Inclusive AI</span>
+        <span class="tag">Data Engineering</span>
+        <span class="tag">Economics</span>
+        <span class="tag accent">Open to opportunities</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats reveal">
+    <div class="stat"><div class="k"><em>4.00</em>/4.50</div><div class="v">Cumulative GPA</div></div>
+    <div class="stat"><div class="k">2 <em>×</em></div><div class="v">Brain Scholarship</div></div>
+    <div class="stat"><div class="k">12k <em>+</em></div><div class="v">Curated Items</div></div>
+    <div class="stat"><div class="k">3 <em>+</em></div><div class="v">Certifications</div></div>
+  </section>
+
+  <!-- Education -->
+  <section class="grid reveal">
+    <div class="label">02 / Education</div>
+    <div class="rows">
+      <div class="row-item">
+        <span class="when">2021.03 — 2026.02</span>
+        <span class="what">
+          한양대학교 ERICA
+          <small>B.A. in Economics &amp; B.S. in Computer Science · GPA 4.00 / 4.50</small>
+        </span>
+        <span class="where">Bachelor</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2018.03 — 2021.02</span>
+        <span class="what">
+          인명여자고등학교
+          <small>Inmyeong Girls' High School</small>
+        </span>
+        <span class="where">High school</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section class="grid reveal">
+    <div class="label">03 / Careers</div>
+    <div class="rows">
+      <div class="row-item">
+        <span class="when">2025.12 — Now</span>
+        <span class="what">
+          네이버클라우드 · Hyperscale AI Planning 3
+          <small>HyperCLOVA X 모델 Agentic AI 역량 발굴 및 적용 기획 / 포용적 AI 에이전트 벤치마크 설계</small>
+        </span>
+        <span class="where">Intern</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2024.07 — 2025.02</span>
+        <span class="what">
+          셀렉트스타 · PM 1팀
+          <small>대규모 AI 학습 데이터셋 구축 프로젝트 기획 및 수행 (PA 인턴 → 계약직)</small>
+        </span>
+        <span class="where">Intern / Contract</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications & Languages -->
+  <section class="grid reveal">
+    <div class="label">04 / Certifications</div>
+    <div class="rows">
+      <div class="row-item">
+        <span class="when">2026.03.06</span>
+        <span class="what">ADsP <small>데이터분석 준전문가 · 한국데이터산업진흥원</small></span>
+        <span class="where">Cert.</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2025.12.12</span>
+        <span class="what">SQLD <small>SQL 개발자 · 한국데이터산업진흥원</small></span>
+        <span class="where">Cert.</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2025.05.01</span>
+        <span class="what">투자자산운용사 <small>한국금융투자협회</small></span>
+        <span class="where">Cert.</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2026.02.08</span>
+        <span class="what">TOEIC 830 <small>· TOEIC Speaking IH (150) — 2025.09.03</small></span>
+        <span class="where">Language</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="grid reveal">
+    <div class="label">05 / Skills</div>
+    <div>
+      <div class="eyebrow" style="margin-bottom: 14px;">Programming</div>
+      <div class="skills">
+        <div class="skill"><span class="name">Python</span><span class="bar"><i style="width: 92%"></i></span></div>
+        <div class="skill"><span class="name">C++</span><span class="bar"><i style="width: 60%"></i></span></div>
+        <div class="skill"><span class="name">Java</span><span class="bar"><i style="width: 60%"></i></span></div>
+        <div class="skill"><span class="name">PostgreSQL</span><span class="bar"><i style="width: 65%"></i></span></div>
+        <div class="skill"><span class="name">MySQL</span><span class="bar"><i style="width: 65%"></i></span></div>
+      </div>
+
+      <div class="eyebrow" style="margin: 32px 0 14px;">AI &amp; Analysis</div>
+      <div class="chips">
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">API-based Workflow</span>
+        <span class="tag">Data Analysis</span>
+        <span class="tag">Google Sheets</span>
+        <span class="tag">LLM-as-a-Judge</span>
+      </div>
+
+      <div class="eyebrow" style="margin: 32px 0 14px;">Tools</div>
+      <div class="chips">
+        <span class="tag">VS Code</span>
+        <span class="tag">Eclipse</span>
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">Slack</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section class="grid reveal">
+    <div class="label">06 / Awards</div>
+    <div class="rows">
+      <div class="row-item">
+        <span class="when">2022</span>
+        <span class="what">한양 브레인 장학금 <small>성적우수</small></span>
+        <span class="where">Scholarship</span>
+      </div>
+      <div class="row-item">
+        <span class="when">2021</span>
+        <span class="what">한양 브레인 장학금 <small>성적우수</small></span>
+        <span class="where">Scholarship</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>+82 010 — 8393 — 5061</div>
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

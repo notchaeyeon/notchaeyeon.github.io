@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studying — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+  .page-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .page-head h1 em { font-style: italic; color: var(--accent); }
+  .page-head .lead {
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 38ch;
+    margin-top: 16px;
+  }
+
+  /* Filter bar */
+  .filterbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    flex-wrap: wrap;
+  }
+  .filterbar .left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .filterbar .right { display: flex; align-items: center; gap: 6px; }
+
+  .chip-btn {
+    height: 26px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    font: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .chip-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .chip-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .search {
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 12px;
+    background: transparent;
+    color: var(--ink);
+    width: 220px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search:focus { border-color: var(--ink); }
+
+  /* Post list */
+  .posts { display: flex; flex-direction: column; }
+  .post {
+    display: grid;
+    grid-template-columns: 130px 1fr 200px 60px;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: baseline;
+    cursor: pointer;
+    transition: background .25s, padding .25s;
+    border-radius: var(--r-sm);
+  }
+  .post:hover {
+    background: var(--paper);
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .post .when {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .post .title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+  }
+  .post .title small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    line-height: 1.6;
+    max-width: 56ch;
+    font-weight: 400;
+  }
+  .post .tags { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
+  .post .arrow {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--ink-mute);
+    text-align: right;
+    transition: color .25s, transform .25s;
+  }
+  .post:hover .arrow { color: var(--accent); transform: translateX(4px); }
+
+  .post .draft {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-left: 10px;
+    border: 1px solid var(--accent);
+    padding: 2px 6px;
+    border-radius: 999px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 880px) {
+    .post { grid-template-columns: 100px 1fr; }
+    .post .tags, .post .arrow { grid-column: 2; }
+  }
+
+  .empty {
+    padding: 80px 20px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* "Add note" — author memo */
+  .note {
+    margin-top: 32px;
+    padding: 18px 22px;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-md);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+  .note b { color: var(--ink); }
+
+  /* Reader overlay */
+  .reader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    overflow-y: auto;
+    padding: clamp(28px, 5vw, 80px) clamp(20px, 5vw, 80px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px);
+    transition: opacity .35s cubic-bezier(.2,.8,.2,1), transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .reader.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .reader-inner { max-width: 720px; margin: 0 auto; }
+  .reader-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-mute);
+    background: none; border: none; cursor: pointer;
+    padding: 0; margin-bottom: 56px; transition: color .2s;
+  }
+  .reader-back:hover { color: var(--ink); }
+  .reader-date {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.06em; color: var(--ink-mute); margin-bottom: 20px;
+  }
+  .reader-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 24px;
+  }
+  .reader-summary {
+    font-family: var(--serif);
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.7; color: var(--ink-soft);
+    max-width: 58ch; margin-bottom: 40px;
+    padding-bottom: 36px; border-bottom: 1px solid var(--line-soft);
+  }
+  .reader-wip {
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-mute); letter-spacing: 0.05em;
+    padding: 18px 22px; border: 1px dashed var(--line);
+    border-radius: var(--r-md); line-height: 1.7;
+  }
+  .reader-source {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 32px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-mute); text-decoration: none;
+    border-bottom: 1px solid var(--line-soft);
+    padding-bottom: 2px; transition: color .2s, border-color .2s;
+  }
+  .reader-source:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ── Reader body sections ── */
+  .rb-section {
+    margin-bottom: 40px;
+  }
+  .rb-heading {
+    font-family: var(--serif); font-size: 22px;
+    letter-spacing: -0.01em; margin-bottom: 14px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line-soft);
+  }
+  .rb-def {
+    font-family: var(--serif); font-size: 17px;
+    line-height: 1.6; color: var(--ink-soft);
+    padding: 16px 20px; border-left: 3px solid var(--accent);
+    background: var(--paper); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  }
+  .rb-desc {
+    font-size: 14.5px; line-height: 1.7; color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .rb-list, .rb-ordered {
+    padding-left: 20px; margin: 0;
+  }
+  .rb-list li, .rb-ordered li {
+    font-size: 14.5px; line-height: 1.75;
+    color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .rb-list li strong, .rb-ordered li strong { color: var(--ink); }
+  .rb-list code, .rb-ordered code {
+    font-family: var(--mono); font-size: 12.5px;
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 4px; color: var(--accent);
+  }
+  .rb-formula {
+    font-family: var(--mono); font-size: 14px;
+    padding: 16px 22px; margin: 14px 0;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-sm); text-align: center;
+    color: var(--ink); letter-spacing: 0.02em;
+  }
+  .rb-pros-cons {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 8px;
+  }
+  @media (max-width: 600px) { .rb-pros-cons { grid-template-columns: 1fr; } }
+  .rb-pros, .rb-cons {
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: var(--paper);
+  }
+  .rb-badge {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 999px;
+    display: inline-block; margin-bottom: 12px;
+  }
+  .rb-badge-pros { background: var(--ink); color: var(--paper); }
+  .rb-badge-cons { background: transparent; border: 1px solid var(--line); color: var(--ink-mute); }
+</style>
+</head>
+<body>
+
+<div class="shell" data-screen-label="04 Studying">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="profile.html">Profile</a>
+      <a href="project.html">Project</a>
+      <a href="studying.html" class="active">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <section class="page-head reveal">
+    <div>
+      <h1>Stud<em>y</em>ing.</h1>
+      <p class="lead">매주 새롭게 배우는 것들을 정리합니다 — 데이터 분석, 통계, 금융, AI 논문, 그리고 자격증 후기까지.</p>
+    </div>
+    <div class="meta" style="text-align: right;">
+      <div class="eyebrow">N° 03 — Notes &amp; Logs</div>
+      <div class="eyebrow"><span data-count>0</span> entries</div>
+      <div class="eyebrow">Updates weekly</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div class="filterbar reveal">
+    <div class="left" data-tags>
+      <span style="color: var(--ink);">Filter ·</span>
+      <!-- chips injected -->
+    </div>
+    <div class="right">
+      <input class="search" type="search" placeholder="search…" data-search />
+    </div>
+  </div>
+
+  <!-- Posts -->
+  <section class="posts reveal" data-list></section>
+
+  <div class="note">
+    <b>NEW POST?</b> &nbsp; <code>posts-studying.js</code> 파일 맨 위에 새 객체를 추가하면 즉시 노출됩니다.
+    <br/>필드: <code>date / title / summary / tags / minutes / status("published"|"draft")</code>
+  </div>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>+82 010 — 8393 — 5061</div>
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Reader overlay -->
+<div class="reader" id="reader">
+  <div class="reader-inner">
+    <button class="reader-back" id="reader-back">← 목록으로</button>
+    <div id="reader-content"></div>
+  </div>
+</div>
+
+<script src="posts-studying.js"></script>
+<script src="scripts.js"></script>
+<script>
+(function () {
+  const posts = window.STUDYING_POSTS || [];
+  const list = document.querySelector("[data-list]");
+  const tagsEl = document.querySelector("[data-tags]");
+  const searchEl = document.querySelector("[data-search]");
+  const countEl = document.querySelector("[data-count]");
+
+  let activeTag = "All";
+  let query = "";
+
+  // Build tag chips
+  const tagSet = new Set(["All"]);
+  posts.forEach(p => (p.tags || []).forEach(t => tagSet.add(t)));
+  [...tagSet].forEach(t => {
+    const b = document.createElement("button");
+    b.className = "chip-btn" + (t === "All" ? " active" : "");
+    b.textContent = t;
+    b.addEventListener("click", () => {
+      activeTag = t;
+      tagsEl.querySelectorAll(".chip-btn").forEach(x => x.classList.toggle("active", x.textContent === t));
+      render();
+    });
+    tagsEl.appendChild(b);
+  });
+
+  searchEl.addEventListener("input", e => { query = e.target.value.toLowerCase(); render(); });
+
+  function render() {
+    const filtered = posts.filter(p => {
+      const tagOk = activeTag === "All" || (p.tags || []).includes(activeTag);
+      const q = query.trim();
+      const qOk = !q || (p.title + " " + p.summary + " " + (p.tags||[]).join(" ")).toLowerCase().includes(q);
+      return tagOk && qOk;
+    });
+    countEl.textContent = filtered.length;
+    list.innerHTML = "";
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty">No posts matched.</div>';
+      return;
+    }
+    filtered.forEach(p => {
+      const draft = p.status === "draft";
+      const el = document.createElement("article");
+      el.className = "post";
+      el.innerHTML = `
+        <span class="when">${p.date}</span>
+        <div class="title">
+          ${p.title}${draft ? '<span class="draft">draft</span>' : ''}
+          <small>${p.summary || ""}</small>
+        </div>
+        <div class="tags">${(p.tags||[]).map(t => `<span class="tag">${t}</span>`).join("")} <span class="tag" style="border:none;color:var(--ink-mute)">${p.minutes||"-"} min</span></div>
+        <div class="arrow">→</div>
+      `;
+      el.addEventListener('click', () => openReader(p));
+      list.appendChild(el);
+    });
+  }
+
+  const reader = document.getElementById('reader');
+  const readerContent = document.getElementById('reader-content');
+
+  document.getElementById('reader-back').addEventListener('click', closeReader);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReader(); });
+
+  function closeReader() {
+    reader.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openReader(p) {
+    const draft = p.status === "draft";
+    const bodyHtml = p.body
+      ? p.body
+      : `<div class="reader-wip"><b>전문 작성 중이에요.</b> 곧 완성됩니다.<br/>지금은 요약본만 올라와 있어요 — 정리가 끝나면 여기에 채워 넣을게요.</div>`;
+    const sourceHtml = p.source
+      ? `<a class="reader-source" href="${p.source}" target="_blank" rel="noopener">원문 보기 →</a>`
+      : '';
+    readerContent.innerHTML = `
+      <div class="reader-date">${p.date} · ${p.minutes||"-"} min read${draft ? ' · <span style="color:var(--accent);letter-spacing:0.1em">DRAFT</span>' : ''}</div>
+      <h2 class="reader-title">${p.title}</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px">${(p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="reader-summary">${p.summary || ""}</p>
+      ${bodyHtml}
+      ${sourceHtml}
+    `;
+    reader.classList.add('open');
+    reader.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

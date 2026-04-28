@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+  .page-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .page-head h1 em { font-style: italic; color: var(--accent); }
+  .page-head .meta { text-align: right; }
+
+  .project {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(28px, 4vw, 64px);
+    padding: clamp(32px, 4vw, 56px) 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .project:last-of-type { border-bottom: 1px solid var(--line); }
+  @media (max-width: 880px) {
+    .project { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .project .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .project h2 {
+    font-family: var(--serif);
+    font-size: clamp(34px, 4vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 14px 0 18px;
+  }
+  .project h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .project .org {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .project .when {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-top: 4px;
+    letter-spacing: 0.06em;
+  }
+  .project .cover {
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-md);
+    margin: 16px 0 22px;
+  }
+
+  .project .summary {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .project .body { padding-top: 6px; }
+  .body-block { margin-bottom: 28px; }
+  .body-block:last-child { margin-bottom: 0; }
+  .body-block .h {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+    display: flex; justify-content: space-between; align-items: end;
+  }
+  .body-block ul { list-style: none; }
+  .body-block li {
+    position: relative;
+    padding: 8px 0 8px 22px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--line-soft);
+  }
+  .body-block li:last-child { border-bottom: none; }
+  .body-block li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .body-block li b { font-weight: 600; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+
+  /* Etc — small list */
+  .etc-list {
+    display: flex; flex-direction: column;
+    margin-top: 16px;
+  }
+  .etc {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line-soft);
+    align-items: baseline;
+  }
+  .etc:first-child { border-top: 1px solid var(--line); }
+  .etc .when {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .etc .what {
+    font-family: var(--serif);
+    font-size: 19px;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .etc .what small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+  .etc .where {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 720px) {
+    .etc { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell" data-screen-label="03 Project">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="profile.html">Profile</a>
+      <a href="project.html" class="active">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <section class="page-head reveal">
+    <h1>Pro<em>j</em>ect.</h1>
+    <div class="meta">
+      <div class="eyebrow">N° 02 — Selected Work</div>
+      <div class="eyebrow">2024 — 2026</div>
+      <div class="eyebrow">3 entries</div>
+    </div>
+  </section>
+
+  <!-- Project 01 -->
+  <article class="project reveal" id="p1">
+    <div>
+      <div class="num">P-01 — On going</div>
+      <h2>포용적 <em>AI</em> 에이전트<br/>벤치마크 설계</h2>
+      <div class="org">Naver Cloud · HyperCLOVA X</div>
+      <div class="when">2025.12 — Now</div>
+      <div class="ph cover">Cover · Inclusive AI Agent Framework</div>
+      <p class="summary">
+        AX 확산 과정에서 소외되기 쉬운 산업·연령층을 문제로 설정하고,
+        기존 <i>tau²</i> Agentic Tool Use 벤치마크에 <b>포용성</b> 개념을 주입·평가하는 프레임을 재구축한 프로젝트.
+      </p>
+      <div class="chips">
+        <span class="tag">Agentic AI</span>
+        <span class="tag">Benchmark</span>
+        <span class="tag">LLM-as-a-Judge</span>
+        <span class="tag">Inclusive Design</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="body-block">
+        <div class="h"><span>Key Features</span><span>01</span></div>
+        <ul>
+          <li>국내 산업 통계 분석을 통해 고령자 비중이 높은 <b>농업·요양·유통·물류 4대 산업</b>을 선정하고, 현장 중심 Real-World Task를 정의</li>
+          <li><b>실데이터 분석</b>을 기반으로 고령 사용자 특성을 반영한 페르소나 주입형 사용자 시뮬레이션 환경 구축</li>
+          <li>API 호출 · 도구 사용 · 문제 해결 · 포용성 전반을 평가하는 <b>스코어링 체계</b> 설계</li>
+        </ul>
+      </div>
+
+      <div class="body-block">
+        <div class="h"><span>My Role &amp; Contributions</span><span>02</span></div>
+        <ul>
+          <li><b>User Simulator 구현 (고령자 페르소나 주입)</b> — 고령자 발화 패턴을 모듈화하고, 발생 확률을 제어하는 로직으로 시뮬레이터의 현실성·재현성 확보</li>
+          <li>패턴 적용 전·후 발화를 메타데이터로 기록해 <b>패턴별 효과 분석</b> 설계</li>
+          <li><b>포용성 평가(Evaluator)</b> 설계 — tau² reward 체계를 확장해 <i>Uncertainty / Pressure / Alienation / Invalidation</i> 4축 기반 평가 프레임 설계</li>
+          <li>평가축별 점수·근거를 생성하는 <b>LLM-as-a-Judge</b> 스코어링 로직 구현, JSON 스키마 정형화 및 재평가/후처리 파이프라인 구축</li>
+          <li>농업(농기계) 도메인 Agent Workflow Policy 개선, 한·영 데이터셋 구축, 유통(편의점) 도메인 Tool API 리팩토링</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- Project 02 -->
+  <article class="project reveal" id="p2">
+    <div>
+      <div class="num">P-02 — Completed</div>
+      <h2>한국 교육과정 기반<br/><em>대규모</em> AI 학습 데이터셋 구축</h2>
+      <div class="org">Selectstar · PM 1팀</div>
+      <div class="when">2024.07 — 2025.02</div>
+      <div class="ph cover">Cover · Curriculum-Aligned Data Engineering</div>
+      <p class="summary">
+        한국 교육과정 기반 초·중·고 영역별 대규모 AI 학습 데이터셋 구축 프로젝트.
+        국어·수학·영어 한국 교육과정 및 시중 문제집 기반의 정합성 중심 데이터를 설계.
+      </p>
+      <div class="chips">
+        <span class="tag">Data Pipeline</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">OCR</span>
+        <span class="tag">12,000+ items</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="body-block">
+        <div class="h"><span>Key Features</span><span>01</span></div>
+        <ul>
+          <li>국어·수학·영어 한국 교육과정 및 시중 문제집 기반 <b>대규모 AI 학습 데이터셋</b> 구축</li>
+          <li>초·중·고 전 학년 범위를 포괄하는 <b>교육과정 정합성 중심</b>의 데이터 설계</li>
+        </ul>
+      </div>
+      <div class="body-block">
+        <div class="h"><span>My Role &amp; Contributions</span><span>02</span></div>
+        <ul>
+          <li><b>수학 데이터셋 구축 (초·중·고 총 12,000 문항)</b> — 한국 교육과정 평가원·교과서 등 국내 교육과정 체계 리서치 및 기준 반영</li>
+          <li>데이터 구축 프로세스 기획 및 전체 <b>파이프라인 설계</b> — 교과서·문제집 OCR 및 초벌 데이터 생성, Google Sheets 작업 시트 설계</li>
+          <li>API 호출 및 LLM 기반 <b>2·3차 검수 자동화</b> 파이프라인 구축, 최종 검수 및 데이터 납품 진행</li>
+          <li>교육과정 정합성 / LaTeX 표현 / 문제 풀이 타당성 <b>3축 검수 기준</b> 수립 및 Prompt Engineering</li>
+          <li>Colab 환경 연동 <b>Google Sheets → JSON 파싱 자동화</b></li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- Project 03 — etc -->
+  <article class="project reveal" id="p3">
+    <div>
+      <div class="num">P-03 — Misc</div>
+      <h2>기타 <em>프로젝트</em><br/>및 활동</h2>
+      <div class="org">Selectstar · 동아리 · 팀 프로젝트</div>
+      <div class="when">2024 — 2025</div>
+      <p class="summary">
+        팀 프로젝트, 동아리 활동, 단기 외주 등 그동안 거쳐 온 작은 기록들.
+        분석·기획·실무 어디든 즐겁게 손을 보탠 흔적.
+      </p>
+    </div>
+
+    <div class="body">
+      <div class="etc-list">
+        <div class="etc">
+          <span class="when">2024 — 2025</span>
+          <span class="what">
+            LLM 신뢰성 검증 보험 약관 QA · 음성 데이터셋 구축
+            <small>Trimming, Whisper STT 검수 등 데이터 전·후처리 — Selectstar</small>
+          </span>
+          <span class="where">Selectstar</span>
+        </div>
+        <div class="etc">
+          <span class="when">2024.03 — 2025.12</span>
+          <span class="what">
+            대학교 연합 아동 교육 봉사 동아리 「아름」 · 홍보부 부장
+            <small>1년 9개월, 누적 66시간. 1:1 멘토링 학습 지도, 단체 활동 기획, 동아리 홍보물 제작 및 업로드 프로세스 구축</small>
+          </span>
+          <span class="where">Volunteer</span>
+        </div>
+        <div class="etc">
+          <span class="when">2025.09 — 2025.12</span>
+          <span class="what">
+            2008 Global Financial Crisis · Korea Case Study
+            <small>환율·자본유출·외환보유액 시계열 지표 기반 한국 금융위기 전개 분석. 2020년대 원화 약세를 투자행태·금융 디지털화 관점에서 연결 해석</small>
+          </span>
+          <span class="where">Team Project</span>
+        </div>
+        <div class="etc">
+          <span class="when">2025.03 — 2025.07</span>
+          <span class="what">
+            무역업 실무 마케팅 — (주)지앤에프
+            <small>국내 유통 업체 비즈니스 구조 파악, 유통사 컨택·협의 진행. 타깃 시장·바이어 특성을 반영한 홍보 자료 기획 및 해외 바이어 컨택</small>
+          </span>
+          <span class="where">Field Work</span>
+        </div>
+        <div class="etc">
+          <span class="when">2024.03 — 2024.07</span>
+          <span class="what">
+            국내 유통 기업 위기 분석 및 생존 전략 수립 — 롯데
+            <small>온/오프라인 유통 3C·SWOT 분석을 통해 수익 구조·경쟁 환경·리스크 분해. 비용 구조 개선·채널 전략 중심 생존 방안 도출 및 시각화</small>
+          </span>
+          <span class="where">Team Project</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>+82 010 — 8393 — 5061</div>
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

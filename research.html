@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Research — Chaeyeon An</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+  .page-head h1 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+  .page-head h1 em { font-style: italic; color: var(--accent); }
+  .page-head .lead {
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 38ch;
+    margin-top: 16px;
+  }
+
+  /* Filter bar */
+  .filterbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+    flex-wrap: wrap;
+  }
+  .filterbar .left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .filterbar .right { display: flex; align-items: center; gap: 6px; }
+
+  .chip-btn {
+    height: 26px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    font: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .chip-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .chip-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .search {
+    height: 30px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 12px;
+    background: transparent;
+    color: var(--ink);
+    width: 220px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search:focus { border-color: var(--ink); }
+
+  /* Featured (latest) */
+  .featured {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: clamp(28px, 4vw, 56px);
+    padding: 32px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    margin-bottom: 28px;
+    align-items: stretch;
+    cursor: pointer;
+    transition: border-color .3s, transform .3s;
+  }
+  .featured:hover { border-color: var(--ink); transform: translateY(-2px); }
+  @media (max-width: 880px) { .featured { grid-template-columns: 1fr; gap: 20px; } }
+
+  .featured .body { display: flex; flex-direction: column; gap: 18px; }
+  .featured .meta {
+    display: flex; gap: 14px; align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-mute);
+  }
+  .featured .meta .badge {
+    background: var(--accent); color: var(--paper);
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.1em;
+  }
+  .featured h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .featured h2 em { font-style: italic; color: var(--accent); }
+  .featured p {
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
+  .featured .footrow {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-top: auto;
+    border-top: 1px solid var(--line-soft); padding-top: 16px;
+  }
+  .featured .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .featured .cover {
+    aspect-ratio: 4/5;
+    border-radius: var(--r-md);
+    min-height: 260px;
+  }
+
+  /* Grid of cards */
+  .grid-posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 1080px) { .grid-posts { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 720px) { .grid-posts { grid-template-columns: 1fr; } }
+
+  .card-post {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: var(--r-md);
+    padding: 22px;
+    display: flex; flex-direction: column;
+    cursor: pointer;
+    transition: transform .3s, border-color .3s;
+    min-height: 360px;
+  }
+  .card-post:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+  }
+  .card-post .cover {
+    aspect-ratio: 4/3;
+    border-radius: var(--r-sm);
+    margin-bottom: 16px;
+  }
+  .card-post .when {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .card-post h3 {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 8px 0 10px;
+  }
+  .card-post .summary {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+  .card-post .footrow {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-mute);
+  }
+  .card-post .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .empty {
+    padding: 80px 20px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    grid-column: 1 / -1;
+  }
+
+  .note {
+    margin-top: 32px;
+    padding: 18px 22px;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-md);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+  .note b { color: var(--ink); }
+
+  /* Reader overlay */
+  .reader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 200;
+    overflow-y: auto;
+    padding: clamp(28px, 5vw, 80px) clamp(20px, 5vw, 80px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px);
+    transition: opacity .35s cubic-bezier(.2,.8,.2,1), transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .reader.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .reader-inner { max-width: 720px; margin: 0 auto; }
+  .reader-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-mute);
+    background: none; border: none; cursor: pointer;
+    padding: 0; margin-bottom: 56px; transition: color .2s;
+  }
+  .reader-back:hover { color: var(--ink); }
+  .reader-date {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.06em; color: var(--ink-mute); margin-bottom: 20px;
+  }
+  .reader-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 24px;
+  }
+  .reader-summary {
+    font-family: var(--serif);
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 1.7; color: var(--ink-soft);
+    max-width: 58ch; margin-bottom: 40px;
+    padding-bottom: 36px; border-bottom: 1px solid var(--line-soft);
+  }
+  .reader-wip {
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-mute); letter-spacing: 0.05em;
+    padding: 18px 22px; border: 1px dashed var(--line);
+    border-radius: var(--r-md); line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell" data-screen-label="05 Research">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="index.html"><span>Chaeyeon An / Portfolio · 2026</span></a>
+    </div>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="profile.html">Profile</a>
+      <a href="project.html">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html" class="active">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <section class="page-head reveal">
+    <div>
+      <h1>Resear<em>c</em>h.</h1>
+      <p class="lead">시장과 산업, 그리고 사람을 둘러싼 긴 호흡의 글들. 데이터와 맥락을 함께 적어 봅니다.</p>
+    </div>
+    <div class="meta" style="text-align: right;">
+      <div class="eyebrow">N° 04 — Long-form</div>
+      <div class="eyebrow"><span data-count>0</span> entries</div>
+      <div class="eyebrow">Updates monthly</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div class="filterbar reveal">
+    <div class="left" data-tags>
+      <span style="color: var(--ink);">Topic ·</span>
+    </div>
+    <div class="right">
+      <input class="search" type="search" placeholder="search…" data-search />
+    </div>
+  </div>
+
+  <!-- Featured slot -->
+  <div data-featured class="reveal"></div>
+
+  <!-- Grid -->
+  <section class="grid-posts reveal" data-list></section>
+
+  <div class="note">
+    <b>NEW POST?</b> &nbsp; <code>posts-research.js</code> 파일 맨 위에 새 객체를 추가하면 즉시 노출됩니다.
+    <br/>필드: <code>date / title / summary / tags / minutes / cover</code>
+  </div>
+
+  <footer class="foot reveal">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>+82 010 — 8393 — 5061</div>
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Reader overlay -->
+<div class="reader" id="reader">
+  <div class="reader-inner">
+    <button class="reader-back" id="reader-back">← 목록으로</button>
+    <div id="reader-content"></div>
+  </div>
+</div>
+
+<script src="posts-research.js"></script>
+<script src="scripts.js"></script>
+<script>
+(function () {
+  const posts = window.RESEARCH_POSTS || [];
+  const list = document.querySelector("[data-list]");
+  const tagsEl = document.querySelector("[data-tags]");
+  const searchEl = document.querySelector("[data-search]");
+  const countEl = document.querySelector("[data-count]");
+  const featuredEl = document.querySelector("[data-featured]");
+
+  let activeTag = "All";
+  let query = "";
+
+  const tagSet = new Set(["All"]);
+  posts.forEach(p => (p.tags || []).forEach(t => tagSet.add(t)));
+  [...tagSet].forEach(t => {
+    const b = document.createElement("button");
+    b.className = "chip-btn" + (t === "All" ? " active" : "");
+    b.textContent = t;
+    b.addEventListener("click", () => {
+      activeTag = t;
+      tagsEl.querySelectorAll(".chip-btn").forEach(x => x.classList.toggle("active", x.textContent === t));
+      render();
+    });
+    tagsEl.appendChild(b);
+  });
+
+  searchEl.addEventListener("input", e => { query = e.target.value.toLowerCase(); render(); });
+
+  function render() {
+    const filtered = posts.filter(p => {
+      const tagOk = activeTag === "All" || (p.tags || []).includes(activeTag);
+      const q = query.trim();
+      const qOk = !q || (p.title + " " + p.summary + " " + (p.tags||[]).join(" ")).toLowerCase().includes(q);
+      return tagOk && qOk;
+    });
+    countEl.textContent = filtered.length;
+
+    // featured = first one (latest), only when no filters & no query
+    featuredEl.innerHTML = "";
+    let rest = filtered;
+    if (activeTag === "All" && !query.trim() && filtered.length) {
+      const f = filtered[0];
+      const el = document.createElement("article");
+      el.className = "featured";
+      el.innerHTML = `
+        <div class="body">
+          <div class="meta">
+            <span class="badge">Latest</span>
+            <span>${f.date}</span>
+            <span>·  ${f.minutes || "-"} min read</span>
+          </div>
+          <h2>${f.title}</h2>
+          <p>${f.summary || ""}</p>
+          <div class="footrow">
+            <div class="tags">${(f.tags||[]).map(t => `<span class="tag">${t}</span>`).join("")}</div>
+            <span class="arrow-link">Read essay <span class="arrow">→</span></span>
+          </div>
+        </div>
+        <div class="ph cover">${f.cover || "Research cover"}</div>
+      `;
+      el.addEventListener('click', () => openReader(f));
+      featuredEl.appendChild(el);
+      rest = filtered.slice(1);
+    }
+
+    list.innerHTML = "";
+    if (!rest.length && !featuredEl.children.length) {
+      list.innerHTML = '<div class="empty">No essays matched.</div>';
+      return;
+    }
+    rest.forEach(p => {
+      const el = document.createElement("article");
+      el.className = "card-post";
+      el.innerHTML = `
+        <div class="ph cover">${p.cover || "Cover"}</div>
+        <span class="when">${p.date}</span>
+        <h3>${p.title}</h3>
+        <p class="summary">${p.summary || ""}</p>
+        <div class="footrow">
+          <div class="tags">${(p.tags||[]).slice(0,2).map(t => `<span class="tag">${t}</span>`).join("")}</div>
+          <span>${p.minutes || "-"} min →</span>
+        </div>
+      `;
+      el.addEventListener('click', () => openReader(p));
+      list.appendChild(el);
+    });
+  }
+
+  const reader = document.getElementById('reader');
+  const readerContent = document.getElementById('reader-content');
+
+  document.getElementById('reader-back').addEventListener('click', closeReader);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReader(); });
+
+  function closeReader() {
+    reader.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openReader(p) {
+    readerContent.innerHTML = `
+      <div class="reader-date">${p.date} · ${p.minutes||"-"} min read</div>
+      <h2 class="reader-title">${p.title}</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px">${(p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="reader-summary">${p.summary || ""}</p>
+      <div class="reader-wip"><b>전문 작성 중이에요.</b> 곧 완성됩니다.<br/>지금은 요약본만 올라와 있어요 — 정리가 끝나면 여기에 채워 넣을게요.</div>
+    `;
+    reader.classList.add('open');
+    reader.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

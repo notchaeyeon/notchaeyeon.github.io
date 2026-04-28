@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chaeyeon An — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* ─── Hero ─────────────────────────────────────────────── */
+  .hero {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    padding: clamp(28px, 4vw, 56px);
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(440px, 62vh, 620px);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 32px;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .hero-meta .col { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta .col strong { color: var(--ink); font-weight: 500; }
+  .hero-meta .right { text-align: right; }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(48px, 9vw, 132px);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    align-self: center;
+    max-width: 16ch;
+  }
+  .hero-headline .it { font-style: italic; color: var(--accent); }
+  .hero-headline .small {
+    display: block;
+    font-family: var(--sans);
+    font-size: clamp(13px, 1.1vw, 16px);
+    letter-spacing: 0;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-top: 28px;
+    max-width: 52ch;
+    font-weight: 400;
+  }
+
+  .hero-tail {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 22px;
+  }
+  .hero-tail .name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(20px, 2.5vw, 30px);
+    letter-spacing: -0.01em;
+  }
+  .hero-tail .tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  /* corner decorations */
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    width: 28px; height: 28px;
+    border: 1px solid var(--line);
+  }
+  .hero::before { top: 14px; left: 14px; border-right: none; border-bottom: none; }
+  .hero::after { bottom: 14px; right: 14px; border-left: none; border-top: none; }
+
+  /* ─── Cards row ────────────────────────────────────────── */
+  .cards {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 880px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    padding: 26px 26px 22px;
+    min-height: 260px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1),
+                background .35s,
+                border-color .35s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+  }
+  .card .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+  }
+  .card .title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4.2vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .card .title em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .card .desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 30ch;
+  }
+  .card .row {
+    display: flex; justify-content: space-between; align-items: end;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+
+  .card .arrow {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    transition: background .3s, border-color .3s, color .3s, transform .3s;
+  }
+  .card:hover .arrow {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    transform: rotate(-45deg);
+  }
+
+  /* offset hero corner watermark */
+  .signature-mark {
+    position: absolute;
+    bottom: 22px;
+    left: 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+
+  /* index column on right of hero */
+  .hero-index {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) { .hero-index, .signature-mark { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="shell" data-screen-label="01 Home">
+
+  <header class="topbar reveal">
+    <div class="mark">
+      <span class="dot"></span>
+      <span>Chaeyeon An / Portfolio · 2026</span>
+    </div>
+    <nav>
+      <a href="#" class="active">Index</a>
+      <a href="profile.html">Profile</a>
+      <a href="project.html">Project</a>
+      <a href="studying.html">Studying</a>
+      <a href="research.html">Research</a>
+    </nav>
+    <div data-clock>Seoul · —</div>
+  </header>
+
+  <!-- Hero / Profile preview -->
+  <section class="hero reveal" aria-label="profile">
+    <div class="hero-meta">
+      <div class="col">
+        <span>RA · AI Agent Researcher</span>
+        <strong>Hyundai · Naver Cloud</strong>
+        <span>Hanyang University, ERICA</span>
+      </div>
+      <div class="col right">
+        <span>Index № 01 / 04</span>
+        <strong>Profile</strong>
+        <span>Updated 2026.04</span>
+      </div>
+    </div>
+
+    <h1 class="hero-headline">
+      기술에 <span class="it">온기</span>를<br/>
+      더하는 사람,<br/>
+      <span class="it">안채연</span>입니다.
+      <span class="small">
+        한양대 ERICA에서 경제학과 컴퓨터공학을 복수전공하며, AI가 사람을 더 깊이 이해하도록 만드는 일에 관심이 있습니다.
+        지금은 네이버클라우드에서 HyperCLOVA X 기반 Agentic AI를 연구하고 있어요.
+      </span>
+    </h1>
+
+    <div class="hero-tail">
+      <div class="name">— Chaeyeon An, b. 2003</div>
+      <div class="tags">
+        <span class="tag">AI Agent</span>
+        <span class="tag">Inclusive Design</span>
+        <span class="tag accent">Open to talk</span>
+      </div>
+    </div>
+
+    <span class="signature-mark">Folio · Vol.01</span>
+    <span class="hero-index">Profile / Project / Studying / Research</span>
+  </section>
+
+  <!-- 3 cards -->
+  <section class="cards" aria-label="sections">
+    <a class="card reveal" href="project.html">
+      <div class="num">N° 02 — Selected Work</div>
+      <h2 class="title">Pro<em>j</em>ect</h2>
+      <p class="desc">포용적 AI 에이전트, 한국 교육과정 데이터셋 등 기획부터 검수까지의 기록.</p>
+      <div class="row">
+        <span class="eyebrow">3 entries</span>
+        <span class="arrow" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 12L12 2M12 2H4.5M12 2V9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <a class="card reveal" href="studying.html" style="transition-delay: .05s">
+      <div class="num">N° 03 — Notes &amp; Logs</div>
+      <h2 class="title">Stud<em>y</em>ing</h2>
+      <p class="desc">매주 새롭게 배우는 것들 — 데이터 분석, 통계, 금융, AI 논문 정리.</p>
+      <div class="row">
+        <span class="eyebrow">Updates weekly</span>
+        <span class="arrow" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 12L12 2M12 2H4.5M12 2V9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <a class="card reveal" href="research.html" style="transition-delay: .1s">
+      <div class="num">N° 04 — Long-form</div>
+      <h2 class="title">Resear<em>c</em>h</h2>
+      <p class="desc">시장과 산업, 그리고 사람을 둘러싼 긴 호흡의 글들. 깊이 있게 적어 봅니다.</p>
+      <div class="row">
+        <span class="eyebrow">Updates monthly</span>
+        <span class="arrow" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 12L12 2M12 2H4.5M12 2V9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Footer / Contact -->
+  <footer class="foot reveal" id="contact">
+    <div>
+      <div class="eyebrow">Contact / 연락처</div>
+      <div class="contact-block" style="margin-top: 14px;">
+        <a href="mailto:chaeyeon.an4w@gmail.com">chaeyeon.an4w@gmail.com</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div>+82 010 — 8393 — 5061</div>
+      <div>Seoul, Republic of Korea</div>
+      <div>© 2026 Chaeyeon An</div>
+    </div>
+  </footer>
+
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>
